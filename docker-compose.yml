@@ -1,0 +1,68 @@
+version: '3.9'
+
+services:
+  userapi:
+    build:
+      context: .
+      dockerfile: UserApi/Dockerfile
+    container_name: userapi
+    ports:
+      - 8080:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__Database=Host=userdb;Port=5432;Database=UserDb;Username=postgres;Password=postgres
+    depends_on:
+      - userdb
+    networks:
+      - app-network
+
+  userdb:
+    image: postgres:15
+    container_name: userdb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: UserDb
+    volumes:
+      - userdb_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  employeeapi:
+    build:
+      context: .
+      dockerfile: EmployeeApi/Dockerfile
+    container_name: employeeapi
+    ports:
+      - 8081:8081
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__Database=Host=employeedb;Port=5432;Database=EmployeeDb;Username=postgres;Password=postgres
+    depends_on:
+      - employeedb
+    networks:
+      - app-network
+
+  employeedb:
+    image: postgres:15
+    container_name: employeedb
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: EmployeeDb
+    volumes:
+      - employeedb_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  userdb_data:
+  employeedb_data:

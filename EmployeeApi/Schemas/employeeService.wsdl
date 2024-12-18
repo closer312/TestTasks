@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+             xmlns:tns="http://tempuri.org/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+             targetNamespace="http://tempuri.org/"
+             name="EmployeeService">
+
+	<message name="AddEmployeeRequest">
+		<part name="request" element="tns:AddEmployeeRequest"/>
+	</message>
+
+	<message name="AddEmployeeResponse">
+		<part name="id" element="xsd:string"/>
+	</message>
+
+	<message name="GetEmployeesByNameRequest">
+		<part name="name" element="xsd:string"/>
+	</message>
+
+	<message name="GetEmployeesByNameResponse">
+		<part name="employees" element="tns:EmployeeList"/>
+	</message>
+
+	<message name="GetEmployeesByDepartmentRequest">
+		<part name="department" element="xsd:string"/>
+	</message>
+
+	<message name="GetEmployeesByDepartmentResponse">
+		<part name="employees" element="tns:EmployeeList"/>
+	</message>
+
+	<portType name="EmployeeServicePortType">
+		<operation name="AddEmployee">
+			<input message="tns:AddEmployeeRequest"/>
+			<output message="tns:AddEmployeeResponse"/>
+		</operation>
+		<operation name="GetEmployeesByName">
+			<input message="tns:GetEmployeesByNameRequest"/>
+			<output message="tns:GetEmployeesByNameResponse"/>
+		</operation>
+		<operation name="GetEmployeesByDepartment">
+			<input message="tns:GetEmployeesByDepartmentRequest"/>
+			<output message="tns:GetEmployeesByDepartmentResponse"/>
+		</operation>
+	</portType>
+
+	<binding name="EmployeeServiceBinding" type="tns:EmployeeServicePortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="AddEmployee">
+			<soap:operation soapAction="http://tempuri.org/AddEmployee"/>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tempuri.org/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tempuri.org/"/>
+			</output>
+		</operation>
+		<operation name="GetEmployeesByName">
+			<soap:operation soapAction="http://tempuri.org/GetEmployeesByName"/>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tempuri.org/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tempuri.org/"/>
+			</output>
+		</operation>
+		<operation name="GetEmployeesByDepartment">
+			<soap:operation soapAction="http://tempuri.org/GetEmployeesByDepartment"/>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tempuri.org/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tempuri.org/"/>
+			</output>
+		</operation>
+	</binding>
+
+	<service name="EmployeeService">
+		<port name="EmployeeServicePort" binding="tns:EmployeeServiceBinding">
+			<soap:address location="http://localhost:5050/EmployeeService.asmx"/>
+		</port>
+	</service>
+
+</definitions>

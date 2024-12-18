@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://tempuri.org/"
+           xmlns:tns="http://tempuri.org/"
+           elementFormDefault="qualified">
+
+	<!-- Employee data structure -->
+	<xs:complexType name="Employee">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string"/>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="Department" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- AddEmployeeRequest -->
+	<xs:complexType name="AddEmployeeRequest">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="Department" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- GetEmployeeResponse -->
+	<xs:complexType name="GetEmployeeResponse">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string"/>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="Department" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Employee List -->
+	<xs:complexType name="EmployeeList">
+		<xs:sequence>
+			<xs:element name="Employee" maxOccurs="unbounded" type="tns:Employee"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>
